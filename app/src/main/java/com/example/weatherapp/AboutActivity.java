@@ -5,52 +5,43 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-
-import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity  extends AppCompatActivity {
-
-    ActivityMainBinding binding;
+public class AboutActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_about);
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
-
 
         bottomNavigationView.setOnItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) item -> {
             switch(item.getItemId()){
                 case R.id.navHome:
-
+                    Intent intent2 = new Intent(AboutActivity.this, MainActivity.class);
+                    startActivity(intent2);
                     break;
                 case R.id.location:
-                    Intent intent1 = new Intent(MainActivity.this, LocationActivity.class);
+                    Intent intent1 = new Intent(AboutActivity.this, LocationActivity.class);
                     startActivity(intent1);
                     break;
                 case R.id.about:
-                    Intent intent2 = new Intent(MainActivity.this, AboutActivity.class);
-                    startActivity(intent2);
+
                     break;
 
             }
             return false;
         });
     }
-
-//    private void replaceFragment(Fragment fragment){
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frame_layout, fragment);
-//        fragmentTransaction.commit();
-//    }
 }
