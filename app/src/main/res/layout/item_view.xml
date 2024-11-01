@@ -66,11 +66,28 @@
         android:padding="8sp"
         >
 
+
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:theme="@style/Theme.AppCompat"           -->
+<!--            android:id="@+id/remove_button"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            app:icon="@drawable/remove_icon"-->
+<!--            app:iconTint="@color/on_primary"-->
+<!--            app:iconPadding="0dp"-->
+<!--            app:iconGravity="textStart"-->
+<!--            app:backgroundTint="@android:color/transparent"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/climate_image"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
         <ImageView
             android:id="@+id/climate_image"
-            android:layout_width="80sp"
-            android:layout_height="80sp"
-            android:layout_marginEnd="14dp"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_marginEnd="32dp"
             android:paddingHorizontal="16sp"
             android:src="@drawable/icon_cloud"
             app:layout_constraintEnd_toEndOf="parent"

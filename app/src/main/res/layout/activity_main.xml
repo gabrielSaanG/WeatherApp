@@ -3,16 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/secondary"
+    android:layout_height="match_parent"
+    >
 
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="380sp"
+        android:layout_height="54sp"
+        android:background="@drawable/search_view_background"
+        android:backgroundTint="@color/on_primary"
+        android:iconifiedByDefault="false"
+        android:gravity="center"
+        android:queryHint="Search town WOEID"
+        android:queryBackground="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
-
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
 
 
         <androidx.recyclerview.widget.RecyclerView

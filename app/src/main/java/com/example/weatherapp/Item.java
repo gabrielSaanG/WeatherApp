@@ -1,18 +1,26 @@
 package com.example.weatherapp;
 
-import android.media.Image;
+import com.google.gson.annotations.SerializedName;
 
 public class Item {
 
-    String city_name, country_name, city_temperature, city_time;
+    @SerializedName("city")
+    String city_name;
+    String country_name;
+
+    @SerializedName("condition_code")
+    String city_temperature;
+
+    @SerializedName("time")
+    String city_time;
+
+
     int climate_image;
 
-    public Item(String city_name, String country_name, String city_temperature, String city_time, int climate_image) {
+    public Item(String city_name ,String city_temperature, String city_time) {
         this.city_name = city_name;
-        this.country_name = country_name;
         this.city_temperature = city_temperature;
         this.city_time = city_time;
-        this.climate_image = climate_image;
     }
 
     public String getCity_name() {
