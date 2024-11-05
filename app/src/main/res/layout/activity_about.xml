@@ -29,11 +29,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:background="@color/on_primary_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemTextColor="@color/on_primary"
-        app:itemIconTint="@color/on_primary"
+        android:background="@color/md_theme_primaryContainer"
+        app:itemIconTint="@color/md_theme_onPrimaryContainer"
+        app:itemTextColor="@color/md_theme_onPrimaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

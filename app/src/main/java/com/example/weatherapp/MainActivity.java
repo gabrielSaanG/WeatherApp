@@ -2,13 +2,12 @@ package com.example.weatherapp;
 
 
 import android.content.Intent;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
-
+import com.example.weatherapp.ClimateHashMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 
@@ -20,20 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.JsonObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -45,9 +37,13 @@ public class MainActivity  extends AppCompatActivity {
     List<Item> itemsList = new ArrayList<Item>();
     JSONObject json = new JSONObject();
 
+    ClimateHashMap climateHashMap = new ClimateHashMap();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        climateHashMap.populateHashMap();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -74,20 +70,17 @@ public class MainActivity  extends AppCompatActivity {
         });
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 try {
                     json = new JsonConverter().execute("https://api.hgbrasil.com/weather?woeid="+query).get();
-                    Log.i("JSON", json.getJSONObject("results").toString());
 
                     itemsList.add(new Item(json.getJSONObject("results").getString("city"),
-                            json.getJSONObject("results").getString("condition_code"),
-                            json.getJSONObject("results").getString("time")));
+                            json.getJSONObject("results").getString("condition_code") + " °C",
+                            json.getJSONObject("results").getString("time"),
+                            getClimate(json.getJSONObject("results").getString("condition_slug"), climateHashMap.getCondition_climate())));
 
-                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    recyclerView.setAdapter(new MyAdapter(getApplicationContext(), itemsList));
+                    onClickReloadView();
 
                 } catch (IOException | ExecutionException | InterruptedException | JSONException e) {
                     throw new RuntimeException(e);
@@ -101,13 +94,33 @@ public class MainActivity  extends AppCompatActivity {
             }
         });
 
-
+        MyAdapter adapter = new MyAdapter(getApplicationContext(), itemsList);
+        adapter.setOnItemClickListener(new MyAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                itemsList.remove(position);
+                adapter.notifyItemRemoved(position);
+                onClickReloadView();
+            }
+        });
 
 
 
     }
 
+     public void onClickReloadView() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), itemsList));
+    }
 
+    public int getClimate(String jsonString, HashMap<String, Integer> hashMap){
+
+        Log.i("HASH", hashMap.get(jsonString).toString());
+        return hashMap.get(jsonString);
+    }
 }
+
+
 
 
