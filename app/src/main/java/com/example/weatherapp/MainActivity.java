@@ -1,44 +1,49 @@
 package com.example.weatherapp;
 
+
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
+import com.example.weatherapp.ClimateHashMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.weatherapp.MyAdapter.*;
+import android.widget.ImageView;
+import android.widget.SearchView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.json.JSONObject;
-import org.json.JSONStringer;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 
 public class MainActivity  extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    String txtJson;
+
+    List<Item> itemsList = new ArrayList<Item>();
+    JSONObject json = new JSONObject();
+
+    ClimateHashMap climateHashMap = new ClimateHashMap();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        climateHashMap.populateHashMap();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -46,8 +51,6 @@ public class MainActivity  extends AppCompatActivity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
-
-
         bottomNavigationView.setOnItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) item -> {
             switch (item.getItemId()) {
                 case R.id.navHome:
@@ -66,27 +69,58 @@ public class MainActivity  extends AppCompatActivity {
             return false;
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                try {
+                    json = new JsonConverter().execute("https://api.hgbrasil.com/weather?woeid="+query).get();
 
-        List<Item> items = new ArrayList<Item>();
+                    itemsList.add(new Item(json.getJSONObject("results").getString("city"),
+                            json.getJSONObject("results").getString("condition_code") + " °C",
+                            json.getJSONObject("results").getString("time"),
+                            getClimate(json.getJSONObject("results").getString("condition_slug"), climateHashMap.getCondition_climate())));
 
-        items.add(new Item("Roma", "Itália", "13 C", "09:33", R.drawable.icon_cloud));
+                    onClickReloadView();
 
-        items.add(new Item("Atenas", "Grécia", "19 C", "10:22", R.drawable.icon_cloud));
+                } catch (IOException | ExecutionException | InterruptedException | JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                return false;
+            }
 
-        items.add(new Item("São Paulo", "São Paulo", "22 C", "12:45", R.drawable.icon_cloud));
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
-        String url = "https://api.hgbrasil.com/weather?woeid=461662";
+        MyAdapter adapter = new MyAdapter(getApplicationContext(), itemsList);
+        adapter.setOnItemClickListener(new MyAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                itemsList.remove(position);
+                adapter.notifyItemRemoved(position);
+                onClickReloadView();
+            }
+        });
 
 
 
-
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), items));
     }
 
+     public void onClickReloadView() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), itemsList));
+    }
+
+    public int getClimate(String jsonString, HashMap<String, Integer> hashMap){
+
+        Log.i("HASH", hashMap.get(jsonString).toString());
+        return hashMap.get(jsonString);
+    }
 }
+
+
 
 

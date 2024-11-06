@@ -3,16 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/md_theme_surfaceContainerLowest_highContrast"
+    android:layout_height="match_parent"
+    >
 
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="380sp"
+        android:layout_height="54sp"
+        android:layout_marginTop="24sp"
+        android:queryHint="Search for WOEID"
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_view_background"
+        android:backgroundTint="@color/md_theme_onSurface"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
-
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,9 +56,9 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/on_primary_container"
-        app:itemIconTint="@color/on_primary"
-        app:itemTextColor="@color/on_primary"
+        android:background="@color/md_theme_primaryContainer"
+        app:itemIconTint="@color/md_theme_onPrimaryContainer"
+        app:itemTextColor="@color/md_theme_onPrimaryContainer"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
