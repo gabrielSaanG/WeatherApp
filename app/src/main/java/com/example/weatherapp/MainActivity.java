@@ -85,6 +85,10 @@ public class MainActivity  extends AppCompatActivity {
                 } catch (IOException | ExecutionException | InterruptedException | JSONException e) {
                     throw new RuntimeException(e);
                 }
+
+                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+                intent.putExtra("woeidObject", json.toString());
+
                 return false;
             }
 

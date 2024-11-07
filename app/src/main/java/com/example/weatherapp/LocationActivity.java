@@ -15,10 +15,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LocationActivity extends AppCompatActivity {
 
+
+    JSONObject json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,14 @@ public class LocationActivity extends AppCompatActivity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
+
+        if (getIntent().hasExtra("woeidObject")){
+            try {
+                json = new JSONObject(getIntent().getStringExtra("woeidObject"));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         bottomNavigationView.setOnItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) item -> {
             switch(item.getItemId()){
