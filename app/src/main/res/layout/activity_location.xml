@@ -3,33 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/location"
     android:background="@color/md_theme_surfaceContainerLowest_highContrast"
     android:layout_height="match_parent">
 
     <View
-        android:background="@drawable/only_background"
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        />
+        android:background="@drawable/only_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/frame_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/location_condition_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18sp"
-            android:layout_marginTop="71sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="24sp"
             app:cardCornerRadius="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +51,7 @@
             android:id="@+id/location_wind_card"
             android:layout_width="120sp"
             android:layout_height="120sp"
-            android:layout_marginStart="18sp"
+            android:layout_marginStart="10sp"
             android:layout_marginTop="138sp"
             android:backgroundTint="@color/md_theme_surfaceContainer"
             app:cardCornerRadius="12sp"
@@ -59,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="12sp"
-                android:layout_marginLeft="10sp"
+                android:layout_marginStart="10sp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Vento:"
                 android:textColor="@color/md_theme_onBackground"
@@ -69,7 +72,7 @@
                 android:id="@+id/location_wind_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_marginStart="10sp"
                 android:layout_marginTop="50sp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="6 km/h"
@@ -79,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_marginStart="10sp"
                 android:layout_marginTop="74sp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Leve"
@@ -88,7 +91,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        
 
         <androidx.cardview.widget.CardView
             android:id="@+id/location_umidity_card"
@@ -128,18 +130,19 @@
                 android:layout_marginLeft="10sp"
                 android:layout_marginTop="65sp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Ponto de Condensação:"
+                android:text="Nebulosidade:"
                 android:textColor="@color/md_theme_onBackground"
                 android:textSize="12sp" />
+
             <TextView
-                android:id="@+id/location_condensed_text"
+                android:id="@+id/location_cloudiness_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="10sp"
+                android:layout_gravity="start"
                 android:layout_marginTop="80sp"
+                android:layout_marginStart="10sp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="17°"
+                android:text="60%"
                 android:textColor="@color/md_theme_onBackground"
                 android:textSize="12sp" />
 
@@ -161,31 +164,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="12sp"
                 android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Pressão:"
+                android:text="Prob. de Chuva:"
                 android:textColor="@color/md_theme_onBackground"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/location_pressure_text"
+                android:id="@+id/location_rain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
-                android:layout_marginTop="50sp"
+                android:layout_marginTop="70sp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="1.012"
+                android:text="100%"
                 android:textColor="@color/md_theme_onBackground"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="74sp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="mBar"
-                android:textColor="@color/md_theme_onBackground"
-                android:textSize="16sp" />
 
 
         </androidx.cardview.widget.CardView>
@@ -193,23 +188,25 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/location_pressure_card"
-            android:backgroundTint="@color/md_theme_surfaceContainer"
-            app:cardCornerRadius="12sp"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginTop="24sp"
 
-            >
+            android:backgroundTint="@color/md_theme_background"
+            app:cardCornerRadius="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/location_pressure_card">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_location"
+                    android:paddingVertical="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/md_theme_surfaceContainer"
-                    />
+                    android:background="@color/md_theme_background" />
 
             </RelativeLayout>
 

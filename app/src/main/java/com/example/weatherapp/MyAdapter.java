@@ -1,6 +1,8 @@
 package com.example.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     Context context;
     List<Item> items;
+
 
     private ImageView deleteImgView;
     private static onItemClickListener listener;
@@ -31,6 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.context = context;
         this.items = items;
     }
+
+
 
 
     @NonNull
@@ -50,6 +56,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -62,8 +70,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView city_temperature;
         ImageView climate_image;
         TextView city_time;
-
         ImageView deleteImgView;
+
+        CardView city_card;
+
+
+
 
         public MyViewHolder (@NonNull View itemView, onItemClickListener listener){
             super(itemView);
@@ -72,13 +84,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             climate_image = itemView.findViewById(R.id.climate_image);
             city_time = itemView.findViewById(R.id.city_time);
             deleteImgView = itemView.findViewById(R.id.remove_item_icon);
+            city_card = itemView.findViewById(R.id.city_card);
+
 
                 deleteImgView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v){
                         listener.onItemClick(getAdapterPosition());
                     }
                 });
+
+                city_card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onItemClick(getAdapterPosition());
+                    }
+                });
         }
+
     }
 
 }

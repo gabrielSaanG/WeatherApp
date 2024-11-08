@@ -7,12 +7,15 @@ import com.example.weatherapp.ClimateHashMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +43,7 @@ public class MainActivity  extends AppCompatActivity {
 
     ClimateHashMap climateHashMap = new ClimateHashMap();
 
+    CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +83,14 @@ public class MainActivity  extends AppCompatActivity {
                     itemsList.add(new Item(json.getJSONObject("results").getString("city"),
                             json.getJSONObject("results").getString("condition_code") + " °C",
                             json.getJSONObject("results").getString("time"),
-                            getClimate(json.getJSONObject("results").getString("condition_slug"), climateHashMap.getCondition_climate())));
+                            climateHashMap.getClimate(json.getJSONObject("results").getString("condition_slug"), climateHashMap.getCondition_climate())));
+
 
                     onClickReloadView();
 
                 } catch (IOException | ExecutionException | InterruptedException | JSONException e) {
                     throw new RuntimeException(e);
                 }
-
-                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
-                intent.putExtra("woeidObject", json.toString());
-
                 return false;
             }
 
@@ -97,6 +99,7 @@ public class MainActivity  extends AppCompatActivity {
                 return false;
             }
         });
+
 
         MyAdapter adapter = new MyAdapter(getApplicationContext(), itemsList);
         adapter.setOnItemClickListener(new MyAdapter.onItemClickListener() {
@@ -108,8 +111,14 @@ public class MainActivity  extends AppCompatActivity {
             }
         });
 
-
-
+        adapter.setOnItemClickListener(new MyAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+                intent.putExtra("data", json.toString());
+                startActivity(intent);
+            }
+        });
     }
 
      public void onClickReloadView() {
@@ -118,11 +127,7 @@ public class MainActivity  extends AppCompatActivity {
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(), itemsList));
     }
 
-    public int getClimate(String jsonString, HashMap<String, Integer> hashMap){
 
-        Log.i("HASH", hashMap.get(jsonString).toString());
-        return hashMap.get(jsonString);
-    }
 }
 
 
