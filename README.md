@@ -1,0 +1,1 @@
+This weather app was created as an activity for the Mobile Development subject, mastered by professor **Carlos Eduardo Simões Pelegrin**, in October 2024.The design was created on **Figma**, using the **Material Design**, open-source design system. The aplication was created on the **Android Studio IDE**, using **Java**.
