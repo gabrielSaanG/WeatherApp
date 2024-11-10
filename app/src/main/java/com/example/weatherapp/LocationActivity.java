@@ -32,8 +32,6 @@ public class LocationActivity extends AppCompatActivity {
     RecyclerView climateAndTime;
     MyForecastAdapter myAdapter;
 
-
-
     LinearLayoutManager linearLayoutManager;
 
     ClimateHashMap climateHashMap = new ClimateHashMap();
@@ -60,7 +58,7 @@ public class LocationActivity extends AppCompatActivity {
 
         try {
             json = new JSONObject(data);
-            Log.i("Array", json.getJSONObject("results").getString("condition_slug"));
+            Log.i("Array", json.getJSONObject("results").toString());
             jsonArray = json.getJSONObject("results").getJSONArray("forecast");
 
 
@@ -78,11 +76,23 @@ public class LocationActivity extends AppCompatActivity {
             TextView location_rain_text = findViewById(R.id.location_rain_text);
 
 
+            TextView city_text_name = findViewById(R.id.city_text_name);
+            TextView city_text_temperature = findViewById(R.id.city_text_temperature);
+            TextView city_text_condition = findViewById(R.id.city_text_condition);
+
+
+
             location_condition_img.setImageResource(climateHashMap.getClimate(json.getJSONObject("results").getString("condition_slug"), climateHashMap.getCondition_climate()));
             location_wind_text.setText(json.getJSONObject("results").getString("wind_speedy"));
-            location_umidity_text.setText(json.getJSONObject("results").getString("humidity"));
-            location_cloudiness_text.setText(json.getJSONObject("results").getString("cloudiness"));
+            location_umidity_text.setText(json.getJSONObject("results").getString("humidity") + " %");
+            location_cloudiness_text.setText(json.getJSONObject("results").getString("cloudiness") + " %");
             location_rain_text.setText(json.getJSONObject("results").getString("rain") + " %");
+
+
+            city_text_name.setText(json.getJSONObject("results").getString("city"));
+            city_text_temperature.setText(json.getJSONObject("results").getString("temp") + " °C");
+            city_text_condition.setText(json.getJSONObject("results").getString("description"));
+
 
         } catch (JSONException e) {
             throw new RuntimeException(e);

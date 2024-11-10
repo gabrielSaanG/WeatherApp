@@ -47,6 +47,55 @@
         </androidx.cardview.widget.CardView>
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/city_text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Jesuítas"
+                android:textColor="@color/md_theme_onBackground"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/city_text_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto_bolditalic"
+                android:text="20°C"
+                android:textColor="@color/md_theme_onBackground"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_text_name" />
+
+            <TextView
+                android:id="@+id/city_text_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Paricalmente Nublado"
+                android:textColor="@color/md_theme_onBackground"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_text_temperature" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/location_wind_card"
             android:layout_width="120sp"
@@ -186,11 +235,12 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
-            android:layout_marginTop="24sp"
 
+            android:layout_marginTop="24sp"
             android:backgroundTint="@color/md_theme_background"
             app:cardCornerRadius="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,10 +253,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_location"
-                    android:paddingVertical="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/md_theme_background" />
+                    android:background="@color/md_theme_background"
+                    android:paddingVertical="10sp" />
 
             </RelativeLayout>
 
