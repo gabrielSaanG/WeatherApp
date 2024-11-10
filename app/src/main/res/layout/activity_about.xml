@@ -4,16 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/about"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    <TextView
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_inversePrimary_mediumContrast">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/about_background"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About"
-        android:textAlignment="center"
-        >
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="32sp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    </TextView>
+        <ImageView
+            android:layout_width="130sp"
+            android:layout_height="126dp"
+            android:src="@drawable/profile_v1" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="end"
+        android:text="Gabriel Aragão Sanches"
+        android:textColor="@color/md_theme_onBackground_highContrast"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7sp"
+        android:fontFamily="@font/roboto_regular"
+        android:lineSpacingExtra="5sp"
+        android:text="Studying Web Development at UNIPAR"
+        android:textColor="@color/md_theme_onBackground_highContrast"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -21,11 +65,61 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12sp"
+        android:backgroundTint="@color/md_theme_onTertiaryFixed"
+        app:cardCornerRadius="6sp"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6sp"
+            android:text="RA: 09038026"
+            android:textColor="@color/md_theme_onBackground_highContrast" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/md_theme_onTertiaryFixed"
+        app:cardCornerRadius="6sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView3"
+        app:layout_constraintTop_toTopOf="@+id/cardView3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6sp"
+            android:text="Sistemas para Internet"
+            android:textColor="@color/md_theme_onBackground_highContrast" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:letterSpacing="0.05"
+        android:lineSpacingExtra="8sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14sp"
+        android:layout_marginTop="12sp"
+        android:textSize="20sp"
+        android:textColor="@color/md_theme_onBackground"
+        android:fontFamily="@font/roboto_regular"
+        android:text="This weather app was created as an activity for the Mobile Development subject, mastered by professor Carlos Eduardo Simões Pelegrin, in October 2024. The design was created on Figma, using the Material Design, open-source design system. The aplication was created on the Android Studio IDE, using Java."
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        >
-    </FrameLayout>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -37,8 +131,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        >
+        app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

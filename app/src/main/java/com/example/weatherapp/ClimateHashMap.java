@@ -1,6 +1,8 @@
 
 package com.example.weatherapp;
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 public class ClimateHashMap {
@@ -19,6 +21,11 @@ public class ClimateHashMap {
         condition_climate.put("storm", R.drawable.storm);
     }
 
+    public int getClimate(String jsonString, HashMap<String, Integer> hashMap){
+
+        Log.i("HASH", hashMap.get(jsonString).toString());
+        return hashMap.get(jsonString);
+    }
 
     public HashMap<String, Integer> getCondition_climate() {
         return condition_climate;
